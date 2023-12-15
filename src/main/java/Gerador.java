@@ -85,10 +85,10 @@ public class Gerador {
         do {
             parametrosVazios = false;
 
-            incluirMinusculas = deveIncluirMinusculas();
-            incluirMaiusculas = deveIncluirMaiusculas();
-            incluirNumeros = deveIncluirNumeros();
-            incluirSimbolos = deveIncluirSimbolos();
+            incluirMinusculas = deveIncluirMinusculasInput();
+            incluirMaiusculas = deveIncluirMaiusculasInput();
+            incluirNumeros = deveIncluirNumerosInput();
+            incluirSimbolos = deveIncluirSimbolosInput();
 
             // Se nenhum parâmetro foi escolhido
             if (!incluirMaiusculas && !incluirMinusculas && !incluirNumeros && !incluirSimbolos) {
@@ -99,7 +99,7 @@ public class Gerador {
         } while (parametrosVazios);
 
         System.out.print("Ótimo! Agora digite o tamanho desejado para a senha: ");
-        int length = tamanhoSenha();
+        int length = getTamanhoSenhaInput();
 
         final Gerador gerador = new Gerador(incluirMaiusculas, incluirMinusculas, incluirNumeros, incluirSimbolos);
         final Senha senha = gerador.gerarSenha(length);
@@ -107,7 +107,7 @@ public class Gerador {
         System.err.println("Sua senha gerada é -> " + senha);
     }
 
-    private boolean deveIncluirMinusculas() {
+    private boolean deveIncluirMinusculasInput() {
         String input;
         do {
             System.out.print("Você quer incluir letras minúsculas \"abcd...\" na senha? ");
@@ -117,7 +117,7 @@ public class Gerador {
         return incluir(input);
     }
 
-    private boolean deveIncluirMaiusculas() {
+    private boolean deveIncluirMaiusculasInput() {
         String input;
         do {
             System.out.print("Você quer incluir letras maiúsculas \"ABCD...\" na senha? ");
@@ -127,7 +127,7 @@ public class Gerador {
         return incluir(input);
     }
 
-    private boolean deveIncluirNumeros() {
+    private boolean deveIncluirNumerosInput() {
         String input;
         do {
             System.out.print("Você quer incluir números \"1234...\" na senha? ");
@@ -137,7 +137,7 @@ public class Gerador {
         return incluir(input);
     }
 
-    private boolean deveIncluirSimbolos() {
+    private boolean deveIncluirSimbolosInput() {
         String input;
         do {
             System.out.print("Você quer incluir símbolos \"!@#$...\" na senha? ");
@@ -147,7 +147,7 @@ public class Gerador {
         return incluir(input);
     }
 
-    private int tamanhoSenha() {
+    private int getTamanhoSenhaInput() {
         int tamanho;
         do {
             tamanho = teclado.nextInt();
@@ -172,14 +172,15 @@ public class Gerador {
     }
 
     private void analisarSenha() {
-        String input;
-
-        System.out.print("Digite a senha a ser analisada: ");
-        input = teclado.next();
-
+        String input = getSenhaInput();
         final Senha p = new Senha(input);
 
         System.out.println(p.senhaScore());
+    }
+
+    private String getSenhaInput() {
+        System.out.print("Digite a senha a ser analisada: ");
+        return teclado.next();
     }
 
     private void imprimirMenu() {

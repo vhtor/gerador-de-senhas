@@ -49,10 +49,10 @@ public class Senha {
             char c = senha.charAt(i);
             tipo = tipoCaractere(c);
 
-            if (tipo == 1) contemMaiusculas = true;
-            if (tipo == 2) contemMinusculas = true;
-            if (tipo == 3) contemNumeros = true;
-            if (tipo == 4) contemSimbolos = true;
+            if (tipo == TIPO_MAIUSCULAS) contemMaiusculas = true;
+            else if (tipo == TIPO_MINUSCULAS) contemMinusculas = true;
+            else if (tipo == TIPO_NUMEROS) contemNumeros = true;
+            else if (tipo == TIPO_SIMBOLOS) contemSimbolos = true;
         }
 
         if (contemMaiusculas) score += 1;
