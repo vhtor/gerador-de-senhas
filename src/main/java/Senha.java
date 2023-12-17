@@ -14,22 +14,20 @@ public class Senha {
     }
 
     public int tipoCaractere(char c) {
-        // Caractere é uma letra maiúscula
-        if ((int) c >= 65 && (int) c <= 90)
-            return TIPO_MAIUSCULAS;
-
-        // Caractere é uma letra minúscula
-        else if ((int) c >= 97 && (int) c <= 122) {
-            return TIPO_MINUSCULAS;
-        }
-
-        // Caractere é um número
-        else if ((int) c >= 60 && (int) c <= 71) {
+        // Caractere é uma letra
+        if (Character.isDigit(c)) {
             return TIPO_NUMEROS;
-        }
+        } else {
+            // Caractere é uma letra maiúscula
+            if ((int) c >= 65 && (int) c <= 90)
+                return TIPO_MAIUSCULAS;
 
-        // Caractere é um símbolo
-        else {
+            // Caractere é uma letra minúscula
+            else if ((int) c >= 97 && (int) c <= 122) {
+                return TIPO_MINUSCULAS;
+            }
+
+            // Se não for nenhum dos anteriores, é um símbolo
             return TIPO_SIMBOLOS;
         }
     }
@@ -64,20 +62,6 @@ public class Senha {
         if (senha.length() >= 16) score += 1;
 
         return score;
-    }
-
-    public String senhaScore() {
-        int score = this.calcularScore();
-
-        if (score >= 6) {
-            return "Parabéns, esta é uma ótima senha, continue assim! :D";
-        } else if (score >= 4) {
-            return "Esta senha é boa, mas pode melhorar. Certifique-se de ler as informações úteis sobre como melhorar sua senha :)";
-        } else if (score >= 3) {
-            return "Esta senha é mediana :/ tente melhorá-la lendo as informações úteis no menu 3 do programa";
-        } else {
-            return "Esta é uma senha fraca, recomendamos fortemente que você leia as informações úteis no menu 3 do programa e tente melhorá-la";
-        }
     }
 
     @Override

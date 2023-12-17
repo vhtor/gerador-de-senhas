@@ -28,7 +28,10 @@ public class Gerador {
                     imprimirMenu();
                 }
                 case "2" -> {
-                    analisarSenha();
+                    final var input = getSenhaInput();
+                    final var senha = new Senha(input);
+                    final var score = senha.calcularScore();
+                    imprimirScoreSenha(score);
                     imprimirMenu();
                 }
                 case "3" -> {
@@ -44,6 +47,7 @@ public class Gerador {
             }
         }
     }
+
 
     public void gerarSenha() {
         boolean incluirMaiusculas;
@@ -97,13 +101,6 @@ public class Gerador {
         return new Senha(senha.toString());
     }
 
-    public void analisarSenha() {
-        String input = getSenhaInput();
-        final Senha p = new Senha(input);
-
-        System.out.println(p.senhaScore());
-    }
-
     private void imprimirMenu() {
         System.out.println();
         System.out.println("1 - Gerador de Senhas");
@@ -112,6 +109,18 @@ public class Gerador {
         System.out.println("4 - Encerrar");
         imprimirDivisor();
         System.out.print("Escolha uma opção: ");
+    }
+
+    private void imprimirScoreSenha(int score) {
+        if (score >= 5) {
+            System.out.println("Parabéns, esta é uma ótima senha, continue assim! :D");
+        } else if (score >= 4) {
+            System.out.println("Esta senha é boa, mas pode melhorar. Certifique-se de ler as informações úteis sobre como melhorar sua senha :)");
+        } else if (score >= 3) {
+            System.out.println("Esta senha é mediana :/ tente melhorá-la lendo as informações úteis no menu 3 do programa");
+        } else {
+            System.out.println("Esta é uma senha fraca, recomendamos fortemente que você leia as informações úteis no menu 3 do programa e tente melhorá-la");
+        }
     }
 
     private void imprimirDivisor() {
