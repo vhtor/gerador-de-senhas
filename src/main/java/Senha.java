@@ -1,6 +1,6 @@
 
 public class Senha {
-    String senha;
+    String value;
     int tamanho;
 
     private final static int TIPO_MAIUSCULAS = 1;
@@ -8,9 +8,9 @@ public class Senha {
     private final static int TIPO_NUMEROS = 3;
     private final static int TIPO_SIMBOLOS = 4;
 
-    public Senha(String senha) {
-        this.senha = senha;
-        tamanho = senha.length();
+    public Senha(String value) {
+        this.value = value;
+        tamanho = value.length();
     }
 
     public int tipoCaractere(char c) {
@@ -35,7 +35,7 @@ public class Senha {
     }
 
     public int calcularScore() {
-        String senha = this.senha;
+        String senha = this.value;
 
         boolean contemMaiusculas = false;
         boolean contemMinusculas = false;
@@ -82,6 +82,6 @@ public class Senha {
 
     @Override
     public String toString() {
-        return senha;
+        return value;
     }
 }

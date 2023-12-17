@@ -45,34 +45,7 @@ public class Gerador {
         }
     }
 
-    private Senha gerarSenha(int length) {
-        final StringBuilder senha = new StringBuilder();
-
-        final int tamanhoEspecificacao = especificacao.getEspecificacao().length();
-
-        int max = tamanhoEspecificacao - 1;
-        int min = 0;
-        int range = max - min + 1;
-
-        for (int i = 0; i < length; i++) {
-            int index = (int) (Math.random() * range) + min;
-            senha.append(especificacao.getEspecificacao().charAt(index));
-        }
-
-        return new Senha(senha.toString());
-    }
-
-    private void imprimirInformacoesUteis() {
-        System.out.println();
-        System.out.println("- Use uma senha de pelo menos 08 caracteres, se possível");
-        System.out.println("- Inclua caracteres minúsculos, maíusculos, números e símbolos sempre que possível");
-        System.out.println("- Gere senhas aleatórias onde for viável");
-        System.out.println("- Evite ao máximo usar a mesma senha para contas diferentes em diferentes sistemas");
-        System.out.println("- Evite: letras repetidas, palavras conhecidas, sequências de letras ou números, nomes de animais de estimação e data de nascimento");
-        System.out.println("- Evite colocar na senha informações que colegas ou conhecidos possam descobrir facilmente");
-    }
-
-    private void gerarSenha() {
+    public void gerarSenha() {
         boolean incluirMaiusculas;
         boolean incluirMinusculas;
         boolean incluirNumeros;
@@ -107,80 +80,28 @@ public class Gerador {
         System.err.println("Sua senha gerada é -> " + senha);
     }
 
-    private boolean deveIncluirMinusculasInput() {
-        String input;
-        do {
-            System.out.print("Você quer incluir letras minúsculas \"abcd...\" na senha? ");
-            input = teclado.next();
-        } while (inputRespostaInvalido(input));
+    public Senha gerarSenha(int length) {
+        final StringBuilder senha = new StringBuilder();
 
-        return incluir(input);
-    }
+        final int tamanhoEspecificacao = especificacao.getEspecificacao().length();
 
-    private boolean deveIncluirMaiusculasInput() {
-        String input;
-        do {
-            System.out.print("Você quer incluir letras maiúsculas \"ABCD...\" na senha? ");
-            input = teclado.next();
-        } while (inputRespostaInvalido(input));
+        int max = tamanhoEspecificacao - 1;
+        int min = 0;
+        int range = max - min + 1;
 
-        return incluir(input);
-    }
-
-    private boolean deveIncluirNumerosInput() {
-        String input;
-        do {
-            System.out.print("Você quer incluir números \"1234...\" na senha? ");
-            input = teclado.next();
-        } while (inputRespostaInvalido(input));
-
-        return incluir(input);
-    }
-
-    private boolean deveIncluirSimbolosInput() {
-        String input;
-        do {
-            System.out.print("Você quer incluir símbolos \"!@#$...\" na senha? ");
-            input = teclado.next();
-        } while (inputRespostaInvalido(input));
-
-        return incluir(input);
-    }
-
-    private int getTamanhoSenhaInput() {
-        int tamanho;
-        do {
-            tamanho = teclado.nextInt();
-            if (tamanho < 6) {
-                System.out.print("Por favor, digite um tamanho igual ou maior a 6 para a senha");
-            }
-        } while (tamanho < 6);
-
-        return tamanho;
-    }
-
-    private boolean incluir(String input) {
-        return input.equalsIgnoreCase("s");
-    }
-
-    private boolean inputRespostaInvalido(String input) {
-        if (!input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("n")) {
-            System.out.println("Por favor, digite apenas s ou n como resposta\n");
-            return true;
+        for (int i = 0; i < length; i++) {
+            int index = (int) (Math.random() * range) + min;
+            senha.append(especificacao.getEspecificacao().charAt(index));
         }
-        return false;
+
+        return new Senha(senha.toString());
     }
 
-    private void analisarSenha() {
+    public void analisarSenha() {
         String input = getSenhaInput();
         final Senha p = new Senha(input);
 
         System.out.println(p.senhaScore());
-    }
-
-    private String getSenhaInput() {
-        System.out.print("Digite a senha a ser analisada: ");
-        return teclado.next();
     }
 
     private void imprimirMenu() {
@@ -199,5 +120,75 @@ public class Gerador {
 
     private void imprimirEncerramento() {
         System.out.println("Encerrando o programa...");
+    }
+
+    private void imprimirInformacoesUteis() {
+        System.out.println();
+        System.out.println("- Use uma senha de pelo menos 08 caracteres, se possível");
+        System.out.println("- Inclua caracteres minúsculos, maíusculos, números e símbolos sempre que possível");
+        System.out.println("- Gere senhas aleatórias onde for viável");
+        System.out.println("- Evite ao máximo usar a mesma senha para contas diferentes em diferentes sistemas");
+        System.out.println("- Evite: letras repetidas, palavras conhecidas, sequências de letras ou números, nomes de animais de estimação e data de nascimento");
+        System.out.println("- Evite colocar na senha informações que colegas ou conhecidos possam descobrir facilmente");
+    }
+
+    private boolean deveIncluirMinusculasInput() {
+        String msg = "Você quer incluir letras minúsculas \"abcd...\" na senha? ";
+        return getInputResposta(msg);
+    }
+
+    private boolean deveIncluirMaiusculasInput() {
+        String msg = "Você quer incluir letras maiúsculas \"ABCD...\" na senha? ";
+        return getInputResposta(msg);
+    }
+
+    private boolean deveIncluirNumerosInput() {
+        String msg = "Você quer incluir números \"1234...\" na senha? ";
+        return getInputResposta(msg);
+    }
+
+    private boolean deveIncluirSimbolosInput() {
+        String msg = "Você quer incluir símbolos \"!@#$...\" na senha? ";
+        return getInputResposta(msg);
+    }
+
+    private boolean getInputResposta(String msg) {
+        String input;
+        do {
+            System.out.print(msg);
+            input = teclado.next();
+        } while (isInputRespostaInvalido(input));
+
+        return deveIncluir(input);
+    }
+
+    private int getTamanhoSenhaInput() {
+        int tamanho;
+        do {
+            tamanho = teclado.nextInt();
+            if (tamanho < 6) {
+                System.out.print("Por favor, digite um tamanho igual ou maior a 6 para a senha: ");
+            }
+        } while (tamanho < 6);
+
+        return tamanho;
+    }
+
+    private String getSenhaInput() {
+        System.out.print("Digite a senha a ser analisada: ");
+        return teclado.next();
+    }
+
+    private boolean deveIncluir(String input) {
+        return input.equalsIgnoreCase("s");
+    }
+
+    public boolean isInputRespostaInvalido(String input) {
+        if (!input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("n")) {
+            System.err.println("Por favor, digite apenas s ou n como resposta");
+            System.out.println();
+            return true;
+        }
+        return false;
     }
 }
