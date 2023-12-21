@@ -1,0 +1,15 @@
+true;false;false;false;6;MAIUSCULAS
+false;true;false;false;7;MINUSCULAS
+false;false;true;false;8;NUMEROS
+false;false;false;true;9;SIMBOLOS
+true;true;false;false;10;MAIUSCULAS + MINUSCULAS
+true;false;true;false;11;MAIUSCULAS + NUMEROS
+true;false;false;true;12;MAIUSCULAS + SIMBOLOS
+false;true;true;false;13;MINUSCULAS + NUMEROS
+false;true;false;true;14;MINUSCULAS + SIMBOLOS
+false;false;true;true;15;NUMEROS + SIMBOLOS
+true;true;true;false;16;MAIUSCULAS + MINUSCULAS + NUMEROS
+true;true;false;true;17;MAIUSCULAS + MINUSCULAS + SIMBOLOS
+true;false;true;true;18;MAIUSCULAS + NUMEROS + SIMBOLOS
+false;true;true;true;19;MINUSCULAS + NUMEROS + SIMBOLOS
+true;true;true;true;20;MAIUSCULAS + MINUSCULAS + NUMEROS + SIMBOLOS

@@ -3,10 +3,16 @@ public class Senha {
     String value;
     int tamanho;
 
-    private final static int TIPO_MAIUSCULAS = 1;
-    private final static int TIPO_MINUSCULAS = 2;
-    private final static int TIPO_NUMEROS = 3;
-    private final static int TIPO_SIMBOLOS = 4;
+    public static final int TIPO_MAIUSCULAS = 1;
+    public static final int TIPO_MINUSCULAS = 2;
+    public static final int TIPO_NUMEROS = 3;
+    public static final int TIPO_SIMBOLOS = 4;
+
+    private boolean contemMaiusculas = false;
+    private boolean contemMinusculas = false;
+    private boolean contemNumeros = false;
+    private boolean contemSimbolos = false;
+    private int tipo;
 
     public Senha(String value) {
         this.value = value;
@@ -35,22 +41,16 @@ public class Senha {
     public int calcularScore() {
         String senha = this.value;
 
-        boolean contemMaiusculas = false;
-        boolean contemMinusculas = false;
-        boolean contemNumeros = false;
-        boolean contemSimbolos = false;
-
-        int tipo;
         int score = 0;
 
         for (int i = 0; i < senha.length(); i++) {
             char c = senha.charAt(i);
-            tipo = tipoCaractere(c);
+            this.tipo = this.tipoCaractere(c);
 
-            if (tipo == TIPO_MAIUSCULAS) contemMaiusculas = true;
-            else if (tipo == TIPO_MINUSCULAS) contemMinusculas = true;
-            else if (tipo == TIPO_NUMEROS) contemNumeros = true;
-            else if (tipo == TIPO_SIMBOLOS) contemSimbolos = true;
+            if (this.tipo == TIPO_MAIUSCULAS) this.contemMaiusculas = true;
+            else if (this.tipo == TIPO_MINUSCULAS) this.contemMinusculas = true;
+            else if (this.tipo == TIPO_NUMEROS) this.contemNumeros = true;
+            else if (this.tipo == TIPO_SIMBOLOS) this.contemSimbolos = true;
         }
 
         if (contemMaiusculas) score += 1;
@@ -74,6 +74,22 @@ public class Senha {
         } else {
             return "FRACA";
         }
+    }
+
+    public boolean contemMaiusculas() {
+        return contemMaiusculas;
+    }
+
+    public boolean contemMinusculas() {
+        return contemMinusculas;
+    }
+
+    public boolean isContemNumeros() {
+        return contemNumeros;
+    }
+
+    public boolean contemSimbolos() {
+        return contemSimbolos;
     }
 
     @Override

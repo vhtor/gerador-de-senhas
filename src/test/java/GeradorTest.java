@@ -161,4 +161,29 @@ public class GeradorTest {
         // Assert
         assertEquals(textoEsperado, texto);
     }
+
+    @ParameterizedTest(name = "{5}")
+    @CsvFileSource(resources = "senhas_geracao.csv", delimiter = ';')
+    public void gerarSenha_DeveRetornarSenhaDeAcordoComEspecificacoes(
+            boolean incluirMaiusculas,
+            boolean incluirMinusculas,
+            boolean incluirNumeros,
+            boolean incluirSimbolos,
+            int tamanho,
+            String nomeCaso
+    ) {
+        // ARRANGE
+        final var gerador = this.getGeradorComEspecificacao(incluirMaiusculas, incluirMinusculas, incluirNumeros, incluirSimbolos);
+        final var senha = gerador.gerarSenha(tamanho);
+
+        // ACT
+        senha.calcularScore();
+
+        // ASSERT
+        assertEquals(incluirMaiusculas, senha.contemMaiusculas());
+        assertEquals(incluirMinusculas, senha.contemMinusculas());
+        assertEquals(incluirNumeros, senha.isContemNumeros());
+        assertEquals(incluirSimbolos, senha.contemSimbolos());
+        assertEquals(tamanho, senha.value.length());
+    }
 }
