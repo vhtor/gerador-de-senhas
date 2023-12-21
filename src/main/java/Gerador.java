@@ -48,7 +48,6 @@ public class Gerador {
         }
     }
 
-
     public void gerarSenha() {
         boolean incluirMaiusculas;
         boolean incluirMinusculas;

@@ -4,6 +4,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -135,7 +136,7 @@ public class GeradorTest {
     }
 
     @ParameterizedTest(name = "{2}")
-    @CsvFileSource(resources = "senhas.csv", delimiter = ';')
+    @CsvFileSource(resources = "senhas_score_ponto.csv", delimiter = ';')
     public void analisarSenha_DeveRetornarScoreCorreto(String senhaValue, int scoreEsperado, String nomeCaso) {
         // Arrange
         final var senha = new Senha(senhaValue);
@@ -144,6 +145,20 @@ public class GeradorTest {
         final var score = senha.calcularScore();
 
         // Assert
-        assertSame(scoreEsperado, score);
+        assertEquals(scoreEsperado, score);
+    }
+
+    @ParameterizedTest(name = "{2}")
+    @CsvFileSource(resources = "senhas_score_texto.csv", delimiter = ';')
+    public void analisarSenha_DeveRetornarTextoCorretoParaPontuacao(String senhaValue, String textoEsperado, String nomeCaso) {
+        // Arrange
+        final var senha = new Senha(senhaValue);
+
+        // Act
+        final var score = senha.calcularScore();
+        final var texto = senha.getScoreText(score);
+
+        // Assert
+        assertEquals(textoEsperado, texto);
     }
 }

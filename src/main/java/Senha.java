@@ -64,6 +64,18 @@ public class Senha {
         return score;
     }
 
+    public String getScoreText(int score) {
+        if (score >= 5) {
+            return "OTIMA";
+        } else if (score >= 4) {
+            return "BOA";
+        } else if (score >= 3) {
+            return "MEDIANA";
+        } else {
+            return "FRACA";
+        }
+    }
+
     @Override
     public String toString() {
         return value;
